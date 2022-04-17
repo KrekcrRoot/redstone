@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedStone</title>
+    <link rel="shortcut icon" href="assets/imgs/default/code.png" type="image/x-icon">
+    
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/config.js"></script>
+    
+</head>
+<body>
+    
+    
+    
+    <div class="blocks"></div>
+    <script src="assets/js/mods.js"></script>
+
+
+    <div class="preloader">
+
+        <h2>Загрузка приложения</h2>
+
+        <noscript class="noscript">
+            <span>Ошибка</span><br>
+            У вас выключена поддержка JavaScript <br>
+            <small>
+                <i>Это означает что игра не сможет запуститься</i><br>
+                <i>Посмотрите в интернете как включить JavaScript</i>
+            </small>
+        </noscript>
+
+    </div>
+
+    <div class="wcent">
+        <div class="settingsFlex none">
+            <div class="settings">
+
+                <h2 class="settings__title">Настройки</h2>
+    
+                <span class="close" onclick="toggleSettings();" style="cursor: pointer">X</span>
+    
+                <div class="settings__save">
+    
+                    <h3>Скопировать сохранение</h3>
+                    <script>
+                        function saveBtn() {
+                            document.querySelector("#save").value = `${JSON.stringify(blocks)}`; document.getElementById("save").select(); document.execCommand("copy");
+                            new Msg('Сохранение скопировано');
+                        }
+                    </script>
+                    <button onclick="saveBtn()">Скопировать карту</button>
+                    <input type="text" id="save" style="opacity: 1; cursor: default;">
+                    <br>
+                    <h3>Открыть сохранение</h3>
+                    <textarea name="" id="saveload"></textarea>
+                    <button onclick="loadSave(document.querySelector('#saveload').value)">Открыть</button>
+    
+                </div>
+    
+                <div class="settings__mods">
+    
+    
+                    <h3>Моды</h3>
+    
+                    <input type="text" id="modName">
+                    <button id="modAdd">добавить</button>
+                    <script>
+                        document.querySelector('#modAdd').addEventListener('click', () => {
+                            if(localStorage.mods !== '') localStorage.mods += `,${document.querySelector('#modName').value}`;
+                            if(localStorage.mods === '') localStorage.mods += `${document.querySelector('#modName').value}`;
+                            mods.push(document.querySelector('#modName').value);
+                            let li = document.createElement('li');
+                            li.innerHTML = `
+                                <span>${document.querySelector('#modName').value}</span>
+                                <button onclick="
+                                    mods.splice(mods.indexOf('${document.querySelector('#modName').value}'), 1);
+                                    localStorage.mods = mods.join(',');
+                                    this.parentNode.remove();
+                                    new Msg('Мод успешно удалён');
+                                ">Удалить</button>
+    
+                            `;
+                            document.querySelector('#allMods').append(li);
+                            new Msg('Мод успешно добавлен')
+                        })
+                    </script>
+    
+                    <h3>Все установленные моды:</h3>
+                    <ol id="allMods">
+    
+                        <script>
+                            if(localStorage.mods !== '')
+                            {
+                                for(let i = 0; i < mods.length; i++)
+                                {
+                                    let li = document.createElement('li');
+                                    li.innerHTML = `
+                                    
+                                        <span>${mods[i]}</span>
+                                        <button onclick="
+                                            mods.splice(mods.indexOf('${mods[i]}'), 1);
+                                            localStorage.mods = mods.join(',');
+                                            this.parentNode.remove();
+                                            new Msg('Мод успешно удалён');
+                                        ">Удалить</button>
+    
+                                    `;
+                                    document.querySelector('#allMods').append(li);
+                                }
+                            }
+                        </script>
+    
+                    </ol>
+    
+                </div>
+
+                <div class="settings__game">
+                    <h3>Игра</h3>
+
+                    <label>
+
+                        <input type="checkbox" id="graphic">
+
+                        <script>
+                            $('#graphic').attr('checked', !config.game.lowGraphic);
+
+                            $('#graphic').on('click', () => {
+                                config.game.lowGraphic = !config.game.lowGraphic;
+                                localStorage.setItem('lowgraphic', JSON.stringify(localStorage.lowgraphic))
+                                // localStorage.lowgraphic = !JSON.parse(localStorage.lowgraphic);
+                            })
+                        </script>
+
+                        Высокие настройки графики игры
+
+                    </label>
+
+                    <label>
+
+                        <input type="checkbox" id="development">
+
+                        <script>
+                            if(localStorage.development == "true")
+                                $('#development').attr('checked', 'true');
+
+                            $('#development').on('click', () => {
+                                config.game.development = !config.game.development;
+                                refresh();
+                                // localStorage.development = !JSON.parse(localStorage.development);
+                            })
+                        </script>
+
+                        Режим разработки
+
+                    </label>
+
+                </div>
+    
+            </div>
+        </div>
+        
+    </div>
+
+    
+
+    <div class="xy" style="user-select: none;">
+        <p>X: <span id="x"></span> <br> Y: <span id="y"></span></p>
+    </div>
+
+    <div class="tool">
+        <img src="assets/imgs/default/redstone.png" alt="">
+    </div>
+
+    <div class="status">
+        <p id="status">off</p>
+    </div>
+
+    <div class="msgs">
+
+    </div>
+
+    <div class="menu none"></div>
+
+
+    <div class="canvases">
+
+        <canvas id="fg"></canvas>
+        <canvas id="effects"></canvas>
+        <canvas id="bg"></canvas>
+
+    </div>
+
+
+    <script src="assets/js/functions.js"></script>
+    <script src="assets/js/msg.js"></script>
+    <script src="assets/js/block.js"></script>
+    <script src="assets/js/blocks.js"></script>
+    <script src="assets/js/core.js"></script>
+    <script src="assets/js/bg.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/fg.js"></script>
+    <script src="assets/js/imgs.js"></script>
+    <script src="assets/js/preloader.js"></script>
+</body>
+</html>
+
+
+<!-- 
+
+    Krekcr | 2021
+    if you want to cooperate: vk.com/krekcr || shilenkok@bk.ru
+
+ -->
