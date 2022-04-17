@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Consolas, 'Courier New', monospace;
+        }
+
+        p {
+            padding: 1.5em;
+            font-size: 1.15em;
+        }
+
+        pre {
+            background-color: rgb(87, 87, 87);
+            color: white;
+            width: 600px;
+            padding-left: 2em;
+            margin-left: 5vw;
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+<body>
+    
+
+    
+
+
+    <p>Вставьте данный кусок кода в <b>imgs.js</b></p>
+
+    <pre id="imgs"></pre>
+
+    <p>Вставьте данный кусок кода в <b>blocks.js</b> в массив <b>allBlocks</b></p>
+
+    <pre id="allblocks"></pre>
+
+    <p>Вставьте данный кусок кода в <b>blocks.js</b> после последнего блока</p>
+
+    <pre id="blocks"></pre>
+
+
+
+    <script>
+
+        let type = prompt('Введите type блока (первая буква заглавная)');
+        let title = prompt('Введите название блока');
+
+        document.querySelector('#imgs').innerHTML = `
+const ${type}Block    = new Image();
+${type}Block.src      = 'assets/imgs/${type.toLowerCase()}.png';
+
+`;
+
+        document.querySelector('#allblocks').innerHTML = `
+{
+    type: '${type}',
+    title: '${title}'
+}
+
+`;
+
+        document.querySelector('#blocks').innerHTML = `
+class ${type} extends Block {
+    constructor(x, y, settings = false)
+    {
+        let properties = {
+            type: '${type}',
+            settings: false
+        }
+
+        properties.settings = settings;
+
+        super(x, y, properties);
+    }
+
+    tick()
+    {
+        /*
+            put block logic here
+        */
+    }
+}
+
+`;
+
+    </script>
+
+</body>
+</html>

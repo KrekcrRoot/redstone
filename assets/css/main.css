@@ -1,0 +1,263 @@
+@font-face {
+    src: url(../fonts/OpenSans-Light.ttf) format("truetype");
+    font-family: 'OpenSans';
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "OpenSans";
+}
+
+body {
+    max-height: 100vh;
+    max-width: 100%;
+    overflow: hidden;
+    /* color: #8f8f8f; */
+    background-color: #c3c3c3; /* #202021 #c3c3c3*/
+}
+
+.canvases {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+#fg {
+    position: absolute;
+    z-index: 10;
+}
+
+#effects {
+    position: absolute;
+    z-index: 7;
+}
+
+#bg {
+    position: absolute;
+    z-index: 5;
+}
+
+.msgs {
+    position: absolute;
+    z-index: 10000;
+    right: 30px;
+    top: 10px;
+    height: 100vh;
+    width: 20%;
+    user-select: none;
+}
+
+.errorMsg {
+    margin-bottom: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 400px;
+    min-height: 60px;
+    background-color: rgba(255, 96, 96, 0.75);
+    border-radius: 15px;
+    color: rgb(53, 0, 0);
+    opacity: 0;
+}
+
+.defaultMsg {
+    margin-bottom: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 400px;
+    min-height: 60px;
+    background-color: rgba(0, 140, 255, 0.75);
+    border-radius: 15px;
+    color: rgb(0, 56, 102);
+    opacity: 0;
+    
+}
+
+.xy {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.status {
+    position: absolute;
+    bottom: 0;
+    z-index: 1000;
+    width: 50px;
+    text-align: center;
+    opacity: 1;
+    left: calc(50% - 50px);
+    user-select: none;
+}
+
+#status {
+    color: red;
+}
+
+.menu {
+    width: 600px;
+    height: 300px;
+    background-color: rgba(255, 102, 102, 0.55);
+    border-radius: 6px;
+    position: absolute;
+    left: calc(50% - 300px);
+    top: calc(50vh - 150px);
+    opacity: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.menu-tool {
+    padding: 0.6em;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.menu-tool-img {
+    width: 50px;
+}
+
+.tool-active {
+    border: 1px solid black;
+    background-color: rgba(255, 102, 102, 0.3);
+}
+
+.none {
+    display: none;
+}
+
+.preloader {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 10000000;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: all 200ms ease-in-out;
+}
+
+noscript, .noscript {
+    background-color: #ff8888;
+    border-left: 5px solid #FF6666;
+    padding: 1em;
+    color: rgb(255, 255, 255);
+    border-left: 5px solid #a82323;
+    margin-top: 1em;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+noscript span, .noscript span {
+    color: rgb(128, 0, 0);
+    font-weight: 900;
+}
+
+.codeIDE {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000000;
+}
+
+.codeIDE textarea {
+    background-color: rgba(255, 255, 255, 0.6);
+    outline: none;
+    border: none;
+    font-size: 1.2em;
+    padding: 1em;
+}
+
+.codeIDE__btns {
+    display: flex;
+}
+.codeIDE__btns button {
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 0.3em 1em;
+    margin: 0.3em 1em 0 0;
+
+}
+
+.tool {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    user-select: none;
+    background-color: rgba(143, 143, 143, 0.397);
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool img {
+    user-select: none;
+    height: 50px;
+    margin: 0.3em;
+}
+
+.settings {
+    position: absolute;
+    position: relative;
+    height: 600px;
+    width: 900px;
+    background-color: white;
+    z-index: 1000000;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.settings__save, .settings__mods, .settings__game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.settings__title {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.wcent {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 
+
+    Krekcr | 2021
+    if you want to cooperate: vk.com/krekcr || shilenkok@bk.ru
+
+*/
