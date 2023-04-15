@@ -71,7 +71,7 @@ class Block {
             )
         }
 
-        if(this.charged == true)
+        if(this.charged)
         {
                     
             if(this.type == 'Lamp')
@@ -253,7 +253,7 @@ class Block {
         this.cases(
 
             block => {
-                if( (block.cch && this.cbch && block.charged == true) || block.morch)
+                if( (block.cch && this.cbch && block.charged) || block.morch)
                 {
                     if( 
                         
@@ -274,7 +274,7 @@ class Block {
                 }
             },
             block => {
-                if( (block.cch && this.cbch && block.charged == true) || block.morch)
+                if( (block.cch && this.cbch && block.charged) || block.morch)
                 {
                     if( 
                         
@@ -295,7 +295,7 @@ class Block {
                 }
             },
             block => {
-                if( (block.cch && this.cbch && block.charged == true) || block.morch)
+                if( (block.cch && this.cbch && block.charged) || block.morch)
                 {
                     if( 
                         
@@ -316,7 +316,7 @@ class Block {
                 }
             },
             block => {
-                if( (block.cch && this.cbch && block.charged == true) || block.morch)
+                if( (block.cch && this.cbch && block.charged) || block.morch)
                 {
                     if( 
                         
